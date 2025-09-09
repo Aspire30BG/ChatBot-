@@ -1,0 +1,99 @@
+/* Reset */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Chat container */
+#chat-container {
+  width: 400px;
+  max-width: 95%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Chat box */
+#chat-box {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background: #f9f9f9;
+}
+
+/* Message styles */
+#chat-box p {
+  padding: 10px 14px;
+  margin: 8px 0;
+  border-radius: 16px;
+  max-width: 75%;
+  word-wrap: break-word;
+}
+
+/* Bot messages */
+#chat-box p:nth-child(odd) {
+  background: #e5e5ea;
+  color: #333;
+  align-self: flex-start;
+}
+
+/* User messages */
+#chat-box p:nth-child(even) {
+  background: #4caf50;
+  color: white;
+  align-self: flex-end;
+}
+
+/* Input area */
+#user-input {
+  border: none;
+  flex: 1;
+  padding: 12px;
+  font-size: 15px;
+  outline: none;
+}
+
+#send-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 0 18px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#send-btn:hover {
+  background: #43a047;
+}
+
+/* Input row */
+#chat-container > div:last-child {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+.pay-btn {
+  display: inline-block;
+  margin: 8px 0;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #2d9cdb; /* Paystack blue */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pay-btn:hover {
+  background-color: #1b6fa8;
+}
