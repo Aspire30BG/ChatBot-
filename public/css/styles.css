@@ -1,99 +1,102 @@
-/* Reset */
+/* General container */
 body {
-  margin: 0;
   font-family: Arial, sans-serif;
-  background: #f7f7f7;
+  background: linear-gradient(to right, #ffecd2, #fcb69f);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin: 0;
 }
 
-/* Chat container */
 #chat-container {
-  width: 400px;
-  max-width: 95%;
+  width: 380px;
+  height: 600px;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-/* Chat box */
+/* Chat messages */
 #chat-box {
   flex: 1;
   padding: 15px;
   overflow-y: auto;
-  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* Message styles */
-#chat-box p {
-  padding: 10px 14px;
-  margin: 8px 0;
-  border-radius: 16px;
+/* Chat bubbles */
+.message {
   max-width: 75%;
+  padding: 10px 15px;
+  border-radius: 15px;
+  line-height: 1.4;
+  font-size: 14px;
   word-wrap: break-word;
 }
 
-/* Bot messages */
-#chat-box p:nth-child(odd) {
-  background: #e5e5ea;
-  color: #333;
+.message.bot {
+  background: #f1f1f1;
   align-self: flex-start;
 }
 
-/* User messages */
-#chat-box p:nth-child(even) {
-  background: #4caf50;
-  color: white;
+.message.you {
+  background: #4facfe;
+  color: #fff;
   align-self: flex-end;
 }
 
 /* Input area */
+#input-area {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background: #fafafa;
+}
+
 #user-input {
-  border: none;
   flex: 1;
-  padding: 12px;
-  font-size: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
   outline: none;
+  font-size: 14px;
 }
 
 #send-btn {
-  background: #4caf50;
-  color: white;
-  border: none;
-  padding: 0 18px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-#send-btn:hover {
-  background: #43a047;
-}
-
-/* Input row */
-#chat-container > div:last-child {
-  display: flex;
-  border-top: 1px solid #ddd;
-}
-.pay-btn {
-  display: inline-block;
-  margin: 8px 0;
+  margin-left: 8px;
   padding: 10px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #2d9cdb; /* Paystack blue */
+  background: #4facfe;
   border: none;
-  border-radius: 8px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
+#send-btn:hover {
+  background: #00c6ff;
+}
+
+/* Payment button inside chat */
+.pay-btn {
+  margin-top: 10px;
+  padding: 10px 16px;
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: flex-start;
+}
+
 .pay-btn:hover {
-  background-color: #1b6fa8;
+  background: #218838;
 }

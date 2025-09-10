@@ -1,7 +1,7 @@
 const Session = require("../models/Session");
 
 const ITEMS = [
-  { id: 1, name: "Jollof Rice", price: 1000 },
+  { id: 1, name: "Jollof Rice", price: 3000 },
   { id: 2, name: "Pizza", price: 3500 },
   { id: 3, name: "Burger", price: 2000 },
 ];
@@ -15,11 +15,16 @@ exports.handleChat = async (req, res) => {
       deviceId,
       currentOrder: [],
       orderHistory: [],
-      stage: "main",
     });
+  } else {
+    // Clear current order on new chat start
+    if (message === "start") {
+      session.currentOrder = [];
+      await session.save();
+    }
   }
 
-  // 🔹 MAIN STAGE
+  // MAIN STAGE
   if (session.stage === "main") {
     switch (message) {
       case "1":
@@ -43,9 +48,35 @@ exports.handleChat = async (req, res) => {
         await session.save();
 
         return res.json({
-          reply: `✅ Order placed!\n💵 Total = ₦${total}\nRedirecting to payment...`,
+          reply: `✅ Order placed!\n💵 Total = ₦${total}`,
           redirect: `/api/pay/initiate?deviceId=${deviceId}`,
         });
+
+      case "98":
+        if (!session.orderHistory || session.orderHistory.length === 0) {
+          return res.json({ reply: "📭 No order history yet." });
+        }
+
+        let historyReply = "📜 Order History:\n";
+        session.orderHistory.forEach((order, index) => {
+          historyReply += `\nOrder ${index + 1}\n`;
+
+          // ✅ Handle both formats: array OR { items, total }
+          if (Array.isArray(order)) {
+            order.forEach((item) => {
+              historyReply += `   • ${item.item} - ₦${item.price}\n`;
+            });
+            const total = order.reduce((sum, i) => sum + i.price, 0);
+            historyReply += `   👉 Total: ₦${total}\n`;
+          } else if (order.items) {
+            order.items.forEach((item) => {
+              historyReply += `   • ${item.item} - ₦${item.price}\n`;
+            });
+            historyReply += `   👉 Total: ₦${order.total}\n`;
+          }
+        });
+
+        return res.json({ reply: historyReply });
 
       case "97":
         if (session.currentOrder.length === 0) {

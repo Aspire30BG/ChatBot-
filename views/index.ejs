@@ -3,14 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>Restaurant ChatBot</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  <div id="chat-container">
-    <div id="chat-box"></div>
-    <input id="user-input" type="text" placeholder="Type option...">
-    <button id="send-btn">Send</button>
+  <div id="chat-wrapper">
+    <div id="chat-container">
+      <!-- Chat messages -->
+      <div id="chat-box"></div>
+
+      <!-- Input area -->
+      <div id="input-area">
+        <input id="user-input" type="text" placeholder="Type your message..." />
+        <button id="send-btn">Send</button>
+      </div>
+    </div>
   </div>
+
   <script src="/js/chat.js"></script>
 </body>
 </html>
