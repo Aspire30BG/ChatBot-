@@ -13,9 +13,9 @@ exports.initiatePayment = async (req, res) => {
         .json({ error: "No order found for this session." });
     }
 
-    // Calculate total order amount
+    //Calculate total order amount WITH quantity
     const totalAmount = session.currentOrder.reduce(
-      (sum, item) => sum + item.price,
+      (sum, item) => sum + (Number(item.price) || 0) * (Number(item.qty) || 1),
       0
     );
 
@@ -48,9 +48,14 @@ exports.verifyPayment = async (req, res) => {
 
       if (session && session.currentOrder.length > 0) {
         let total = 0;
+        
         session.currentOrder.forEach((item) => {
-          receiptMessage += `• ${item.item} - ₦${item.price}\n`;
-          total += item.price;
+          const qty = Number(item.qty) || 1;
+          const price = Number(item.price) || 0;
+          const itemTotal = price * qty;
+          
+          receiptMessage += `• ${qty}x ${item.item} - ₦${itemTotal}\n`;
+          total += itemTotal;
         });
 
         receiptMessage += `👉 Total: ₦${total}`;
@@ -58,6 +63,7 @@ exports.verifyPayment = async (req, res) => {
         // Move items into orderHistory
         session.orderHistory.push({
           items: [...session.currentOrder],
+          total: total, //Store the correct total
           date: new Date(),
         });
 
